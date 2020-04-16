@@ -15,6 +15,120 @@ class ViewController: UIViewController {
     // important when setting contraints programmatically
     main.translatesAutoresizingMaskIntoConstraints = false
     main.backgroundColor = .green
+    
+
+    // #######################################################
+    // Red Views #############################################
+    // #######################################################
+    func getOrangeBox(_ widAnc: Float, _ heiAnc: Float) -> UIView {
+        return {
+            let view = UIView(frame: CGRect.zero)
+            view.translatesAutoresizingMaskIntoConstraints = false
+            view.backgroundColor = .orange
+            NSLayoutConstraint.activate([
+                view.heightAnchor.constraint(equalToConstant: CGFloat(heiAnc)),
+                view.widthAnchor.constraint(equalToConstant: CGFloat(widAnc))
+            ])
+            return view
+        }()
+    }
+    
+    let redView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .red
+        NSLayoutConstraint.activate([
+          view.heightAnchor.constraint(equalToConstant: 70),
+          view.widthAnchor.constraint(equalToConstant: 170)
+        ])
+        
+        let orangeBox1: UIView = getOrangeBox(50, 60)
+        let orangeBox2: UIView = getOrangeBox(50, 60)
+        
+        let boxesStackView2 = UIStackView(arrangedSubviews: [orangeBox1, orangeBox2])
+        boxesStackView2.translatesAutoresizingMaskIntoConstraints = false
+        boxesStackView2.axis = .horizontal
+        boxesStackView2.alignment = .center
+        boxesStackView2.distribution = .fill
+        boxesStackView2.spacing = 5
+        view.addSubview(boxesStackView2)
+        NSLayoutConstraint.activate([
+          boxesStackView2.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+          boxesStackView2.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+          boxesStackView2.heightAnchor.constraint(equalTo: view.heightAnchor),
+          boxesStackView2.widthAnchor.constraint(equalToConstant: 140),
+          boxesStackView2.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5),
+          boxesStackView2.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5),
+        ])
+        return view
+    }()
+    main.addSubview(redView)
+    NSLayoutConstraint.activate([
+      redView.topAnchor.constraint(equalTo: main.topAnchor, constant: 20),
+      redView.trailingAnchor.constraint(equalTo: main.trailingAnchor, constant: -10),
+    ])
+    // #######################################################
+    
+
+    
+    
+    // #######################################################
+    // Purple Views ##########################################
+    // #######################################################
+    let purpleView: UIView = {
+        let view = UIView(frame: CGRect.zero)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .purple
+        return view
+    }()
+    main.addSubview(purpleView)
+    NSLayoutConstraint.activate([
+      purpleView.trailingAnchor.constraint(equalTo: main.trailingAnchor, constant: -10),
+      purpleView.bottomAnchor.constraint(equalTo: main.bottomAnchor, constant: -10),
+      purpleView.widthAnchor.constraint(equalTo: main.widthAnchor, multiplier: 0.7),
+      purpleView.heightAnchor.constraint(equalToConstant: 80)
+    ])
+    // #######################################################
+    
+    
+    
+    
+    // #######################################################
+    // Blue Views ############################################
+    // #######################################################
+    func getBlueBox(_ widAnc: Float, _ heiAnc: Float) -> UIView {
+        return {
+            let view = UIView()
+            view.translatesAutoresizingMaskIntoConstraints = false
+            view.backgroundColor = .blue
+            NSLayoutConstraint.activate([
+                view.heightAnchor.constraint(equalToConstant: CGFloat(heiAnc)),
+                view.widthAnchor.constraint(equalToConstant: CGFloat(widAnc))
+            ])
+            return view
+        }()
+    }
+    
+    let blueView1: UIView = getBlueBox(80, 80)
+    let blueView2: UIView = getBlueBox(80, 80)
+    let blueView3: UIView = getBlueBox(80, 80)
+    
+    
+    let boxesStackView = UIStackView(arrangedSubviews: [blueView1, blueView2, blueView3])
+    boxesStackView.translatesAutoresizingMaskIntoConstraints = false
+    boxesStackView.axis = .vertical
+    boxesStackView.alignment = .center
+    boxesStackView.spacing = 30
+    boxesStackView.distribution = .equalSpacing
+    main.addSubview(boxesStackView)
+    NSLayoutConstraint.activate([
+        boxesStackView.heightAnchor.constraint(equalTo: main.heightAnchor, multiplier: 0.8),
+      boxesStackView.topAnchor.constraint(equalTo: main.topAnchor, constant: 50),
+      boxesStackView.centerXAnchor.constraint(equalTo: main.centerXAnchor),
+    ])
+    // #######################################################
+    
+    
     return main
   }()
   
@@ -46,27 +160,6 @@ class ViewController: UIViewController {
   }()
     
     
-    let purpleRect: CGRect = {
-        let r = CGRect(x: 0, y: 0, width: 100, height: 50)
-        
-        return r
-    }()
-    
-    
-    // ############################################################
-    // Creating views #############################################
-    // ############################################################
-    let purpleView: UIView = {
-      let v = UIView()
-      // important when setting contraints programmatically
-      v.translatesAutoresizingMaskIntoConstraints = false
-      v.backgroundColor = .purple
-      return v
-    }()
-    
-    
-    
-    
   var widthAnchor: NSLayoutConstraint?
   var heightAnchor: NSLayoutConstraint?
   
@@ -85,18 +178,6 @@ class ViewController: UIViewController {
     
     heightAnchor = mainView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.7, constant: 0)
     heightAnchor?.isActive = true
-    
-    
-    
-    var purpleWidthAnchor: NSLayoutConstraint?
-    
-    mainView.addSubview(purpleView)
-    purpleView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-    purpleView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-    
-    purpleWidthAnchor = purpleView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.7, constant: 0)
-    
-    
     
     
     let buttStackView = UIStackView(arrangedSubviews: [
