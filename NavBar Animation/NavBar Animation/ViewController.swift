@@ -47,32 +47,32 @@ class ViewController: UIViewController {
         let btnWidth = self.view.frame.size.width / 5
         let btnHeight:CGFloat = 90
         
-        let b1 = UIButton()
-//        b1.snack = "Oreos"
+        let b1 = customUIButton()
+        b1.snack = "Oreos"
         b1.addTarget(self, action: #selector(self.addSnack), for: .touchUpInside)
         b1.setImage(UIImage(named: "oreos"), for: .normal)
         b1.frame = CGRect(x: btnWidth * 0, y: 100, width: btnWidth, height: btnHeight)
         
-        let b2 = UIButton()
-//        b2.snack = "Pizza Pockets"
+        let b2 = customUIButton()
+        b2.snack = "Pizza Pockets"
         b2.addTarget(self, action: #selector(self.addSnack), for: .touchUpInside)
         b2.setImage(UIImage(named: "pizza_pockets"), for: .normal)
         b2.frame = CGRect(x: btnWidth * 1, y: 100, width: btnWidth, height: btnHeight)
         
-        let b3 = UIButton()
-//        b3.snack = "Pop Tarts"
+        let b3 = customUIButton()
+        b3.snack = "Pop Tarts"
         b3.addTarget(self, action: #selector(self.addSnack), for: .touchUpInside)
         b3.setImage(UIImage(named: "pop_tarts"), for: .normal)
         b3.frame = CGRect(x: btnWidth * 2, y: 100, width: btnWidth, height: btnHeight)
         
-        let b4 = UIButton()
-//        b4.snack = "Popsicle"
+        let b4 = customUIButton()
+        b4.snack = "Popsicle"
         b4.addTarget(self, action: #selector(self.addSnack), for: .touchUpInside)
         b4.setImage(UIImage(named: "popsicle"), for: .normal)
         b4.frame = CGRect(x: btnWidth * 3, y: 100, width: btnWidth, height: btnHeight)
         
-        let b5 = UIButton()
-//        b5.snack = "Ramen"
+        let b5 = customUIButton()
+        b5.snack = "Ramen"
         b5.addTarget(self, action: #selector(self.addSnack), for: .touchUpInside)
         b5.setImage(UIImage(named: "ramen"), for: .normal)
         b5.frame = CGRect(x: btnWidth * 4, y: 100, width: btnWidth, height: btnHeight)
@@ -93,6 +93,7 @@ class ViewController: UIViewController {
         itemsList = UITableView()
         itemsList!.frame = CGRect(x: 0, y: 88, width: closedFrame.width, height: self.view.frame.size.height)
         itemsList!.translatesAutoresizingMaskIntoConstraints = false
+        itemsList?.dataSource = self
         
         navBar!.addSubview(stack!)
         navBar!.addSubview(titleBar)
@@ -102,8 +103,8 @@ class ViewController: UIViewController {
         
     }
     
-    @objc func addSnack(sender: UIButton!) {
-        self.itemsListSrc.append("Teste")
+    @objc func addSnack(sender: customUIButton!) {
+        self.itemsListSrc.insert(sender.snack!, at: 0)
         itemsList!.reloadData()
     }
     
@@ -142,8 +143,8 @@ class ViewController: UIViewController {
     
 }
 
-extension ViewController: UIButton {
-    public var snack : String?
+class customUIButton: UIButton {
+    public var snack: String?
 }
 
 extension ViewController: UITableViewDataSource {
@@ -153,7 +154,7 @@ extension ViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
-        cell.textLabel?.text = "Douglas"
+        cell.textLabel?.text = itemsListSrc[indexPath.row]
         return cell
     }
     
